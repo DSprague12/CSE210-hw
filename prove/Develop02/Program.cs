@@ -1,6 +1,13 @@
 using System;
 using System.Security.Cryptography.X509Certificates;
 
+/* 
+This it the journal project. I have fulfilled all requirements, but for the stretch activity, I struggled on properly handly commas in csv files.
+So I figured out a way to encode the text into bit64, which is pretty simple to do, and save that in the file instead of the plain text.
+It removes the need to handles commas and it functions to make your journal unreadable in a normal text editor without converting it back, which I count as a bonus.
+The con there is that you can't read it in excel, but I don't think that's a big deal I guess.
+*/
+
 class Program
 { 
     //Fetch prompts and random
@@ -19,13 +26,13 @@ class Program
 
             if(input == "1"){
                 journal.writeInJournal(promptEntry());
-            }else if(input =="2"){
+            }else if(input == "2"){
                 journal.readJournal();
-            }else if(input =="3"){
+            }else if(input == "3"){
                 journal.saveJournal(fileName());
             }else if(input == "4"){
                 journal.fetchJournal(fileName());
-            }else if(input=="0"){
+            }else if(input == "0"){
                 continuePrompting = false;
             }else{
                 Console.WriteLine("Bad input");
@@ -49,13 +56,11 @@ class Program
     }
 
 //What happens when the user wants to write an entry, it returns what will be written in the file
-    static string promptEntry(){
+    static string[] promptEntry(){
         Entry currentEntry = new Entry();
-        string prompt =getPrompt();
-        Console.WriteLine("Your prompt is:");
-        Console.WriteLine(prompt);
-        currentEntry.date=Convert.ToString(DateTime.Now);
-        currentEntry.prompt=prompt;
+        currentEntry.prompt = getPrompt();
+        Console.WriteLine($"Your prompt is: {currentEntry.prompt}");
+        currentEntry.date = Convert.ToString(DateTime.Now);
         Console.WriteLine("Write your entry:");
         currentEntry.userEntry = Console.ReadLine();
         return currentEntry.fullEntry();

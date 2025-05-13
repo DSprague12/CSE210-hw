@@ -4,8 +4,9 @@ public class Entry(){
     public string userEntry;
 
     //Returns what the entry output will be
-    public string fullEntry(){
-        return $"{date} {prompt} {userEntry}";
+    public string[] fullEntry(){
+        string[] output = [date,prompt,userEntry];
+        return output;    
     }
 
 }
