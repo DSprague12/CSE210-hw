@@ -25,7 +25,7 @@ class Program
             string input = Console.ReadLine();
 
             if(input == "1"){
-                journal.writeInJournal(promptEntry());
+                journal.journalStage.Add(promptEntry());
             }else if(input == "2"){
                 journal.readJournal();
             }else if(input == "3"){
