@@ -4,6 +4,29 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop03 World!");
+        Scripture scripture = new Scripture();
+        
+        while (true)
+        {
+            scripture.DisplayScripture();
+            
+            if (scripture.AllWordsHidden())
+            {
+                Console.WriteLine("All words are hidden!");
+                break;
+            }
+
+            Console.WriteLine("Press enter to continue or type anything to quit:");
+            string input = Console.ReadLine();
+
+            if (input == "")
+            {
+                scripture.HideRandomWords();
+            }
+            else
+            {
+                break;
+            }
+        }
     }
 }
