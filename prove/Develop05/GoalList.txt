@@ -1,0 +1,6 @@
+s
+Example goal
+100
+e
+grwttreg
+1
