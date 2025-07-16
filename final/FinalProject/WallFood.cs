@@ -2,7 +2,7 @@ using System.Numerics;
 using Raylib_cs;
 class WallFood : Snack
 {
-    Texture2D _image;
+    private Texture2D _image;
 
     public WallFood()
     {

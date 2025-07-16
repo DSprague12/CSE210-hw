@@ -4,7 +4,7 @@ using Raylib_cs;
 abstract class Snack
 {
     protected Vector2 _position;
-    Random rnd = new Random();
+    private Random rnd = new Random();
     protected bool _ded = false;
     public Snack()
     {

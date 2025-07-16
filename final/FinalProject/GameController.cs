@@ -2,10 +2,10 @@ using Raylib_cs;
 
 class GameController
 {
-    Random rnd = new Random();
-    Snake snek = new Snake();
-    Board board = new Board();
-    List<Snack> _munchies = new List<Snack>();
+    private Random rnd = new Random();
+    private Snake snek = new Snake();
+    private Board board = new Board();
+    private List<Snack> _munchies = new List<Snack>();
     public GameController()
     {
         _munchies.Add(new Food());

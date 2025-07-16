@@ -3,7 +3,7 @@ using Raylib_cs;
 
 class Food : Snack
 {
-    Texture2D _image;
+    private Texture2D _image;
     public Food(){
         _image = Raylib.LoadTexture("images/appel.png");
     }

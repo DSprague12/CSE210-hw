@@ -2,9 +2,9 @@ using System.Numerics;
 using Raylib_cs;
 class Board
 {
-    Texture2D _image1;
-    Texture2D _image2;
-    Texture2D tempImg;
+    private Texture2D _image1;
+    private Texture2D _image2;
+    private Texture2D tempImg;
     public Board()
     {
         _image1 = Raylib.LoadTexture("images/bord1.png");

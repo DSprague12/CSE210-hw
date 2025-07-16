@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 class Snake
 {
-    List<Vector2> _positions;
-    List<int> _rotations;
-    List<Vector2> _previousPositions;
-    List<Vector2> _renderPositions;
+    private List<Vector2> _positions;
+    private List<int> _rotations;
+    private List<Vector2> _previousPositions;
+    private List<Vector2> _renderPositions;
     private Vector2 _lastInput = new Vector2(1, 0);
     private bool _ded = false;
-    Texture2D _image;
-    Texture2D _imageSeg;
+    private Texture2D _image;
+    private Texture2D _imageSeg;
 
     public Snake()
     {
