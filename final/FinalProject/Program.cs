@@ -20,6 +20,7 @@ class Program
         float deltaTime;
         float accumulatedTime = 0;
         bool started = false;
+        float gameTime = 0;
         while (!Raylib.WindowShouldClose())
         {
             if (gameOver)
@@ -30,6 +31,7 @@ class Program
             }
             deltaTime = Raylib.GetFrameTime();
             accumulatedTime += deltaTime;
+            gameTime += deltaTime;
             // iterate game logic after a set amount of time
 
             if (started)
@@ -40,25 +42,37 @@ class Program
                     accumulatedTime -= frameSpace;
                 }
             }
-
+            if (gameTime > 10)
+            {
+                frameSpace = 0.4f;
+            }
+            if (gameTime > 20)
+            {
+                frameSpace = 0.3f;
+            }
+            if (gameTime > 30)
+            {
+                frameSpace = 0.20f;
+            }
+            if (gameTime > 340)
+            {
+                frameSpace = 0.10f;
+            }
             // stuff that always runs, input and drawing the game
-            if (Raylib.GetKeyPressed() != 0)
+            if (Raylib.GetKeyPressed() != 0 || started)
             {
                 started = true;
-            }
-            float alpha = accumulatedTime / frameSpace;
-            alpha = Math.Clamp(alpha, 0f, 1f);
-
-            gameController.Loop(alpha);
-            gameController.runningBackground();
-            if (started)
-            {
                 gameController.Draw();
             }
             else
             {
                 screen.DrawStart();
             }
+            float alpha = accumulatedTime / frameSpace;
+            alpha = Math.Clamp(alpha, 0f, 1f);
+
+            gameController.Loop(alpha);
+            gameController.runningBackground();
         }
         Raylib.CloseWindow();
     }
