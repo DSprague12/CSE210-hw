@@ -5,7 +5,7 @@ abstract class Snack
 {
     protected Vector2 _position;
     Random rnd = new Random();
-    protected bool ded = false;
+    protected bool _ded = false;
     public Snack()
     {
         _position = new Vector2(rnd.Next(0, Program.boardSize), rnd.Next(0, Program.boardSize));
@@ -19,7 +19,7 @@ abstract class Snack
     public abstract int getType();
     public bool isDed()
     {
-        return ded;
+        return _ded;
     }
     public abstract void Eaten();
 }

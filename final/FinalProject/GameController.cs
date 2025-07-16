@@ -5,13 +5,12 @@ class GameController
     Random rnd = new Random();
     Snake snek = new Snake();
     Board board = new Board();
-    List<Snack> munchies = new List<Snack>();
-    Screen screen = new Screen();
+    List<Snack> _munchies = new List<Snack>();
     public GameController()
     {
-        munchies.Add(new Food());
-        munchies.Add(new Food());
-        munchies.Add(new Food());
+        _munchies.Add(new Food());
+        _munchies.Add(new Food());
+        _munchies.Add(new Food());
     }
 
     public void Loop(float alpha)
@@ -33,23 +32,23 @@ class GameController
 
         List<int> toDelete = new();
  
-        for (int i = 0; i < munchies.Count; i++)
+        for (int i = 0; i < _munchies.Count; i++)
         {
-            if (snek.getPosition()[0] == munchies[i].getPosition())
+            if (snek.getPosition()[0] == _munchies[i].getPosition())
             {
                 snek.Grow();
-                munchies[i].Eaten();
+                _munchies[i].Eaten();
                 toDelete.Add(i);
 
-                if (munchies[i].isDed()) snek.setDed();
-                if (munchies[i].getType() == 1) munchies.Add(new Wall());
-                if (munchies[i].getType() == 2) snek.setDed();
+                if (_munchies[i].isDed()) snek.setDed();
+                if (_munchies[i].getType() == 1) _munchies.Add(new Wall());
+                if (_munchies[i].getType() == 2) snek.setDed();
             }
         }
 
         // remove snacks in reverse
         foreach (int index in toDelete.OrderByDescending(i => i))
-            munchies.RemoveAt(index);
+            _munchies.RemoveAt(index);
 
         // adds snacks back
         for (int i = 0; i < toDelete.Count; i++)
@@ -57,11 +56,11 @@ class GameController
             int type = rnd.Next(0, 2);
             if (type == 0)
             {
-                munchies.Add(new Food());
+                _munchies.Add(new Food());
             }
             else if (type == 1)
             {
-                munchies.Add(new WallFood());
+                _munchies.Add(new WallFood());
             }
         }
     }
@@ -76,7 +75,7 @@ class GameController
         Raylib.ClearBackground(Color.White);
         board.buildBoard();
         snek.drawSnek();
-        foreach (Snack munchie in munchies) munchie.Draw();
+        foreach (Snack munchie in _munchies) munchie.Draw();
         Raylib.EndDrawing();
     }
 

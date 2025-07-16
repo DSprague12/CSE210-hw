@@ -8,15 +8,15 @@ class Snake
     List<int> _rotations;
     List<Vector2> _previousPositions;
     List<Vector2> _renderPositions;
-    private Vector2 lastInput = new Vector2(1, 0);
-    private bool ded = false;
-    Texture2D image;
-    Texture2D imageSeg;
+    private Vector2 _lastInput = new Vector2(1, 0);
+    private bool _ded = false;
+    Texture2D _image;
+    Texture2D _imageSeg;
 
     public Snake()
     {
-        image = Raylib.LoadTexture("images/snekhead.png");
-        imageSeg = Raylib.LoadTexture("images/segment.png");
+        _image = Raylib.LoadTexture("images/snekhead.png");
+        _imageSeg = Raylib.LoadTexture("images/segment.png");
         _positions = new List<Vector2>()
         {
             new Vector2(Program.boardSize / 2, Program.boardSize / 2),
@@ -48,11 +48,11 @@ class Snake
 
     public bool isDed()
     {
-        return ded;
+        return _ded;
     }
     public void setDed()
     {
-        ded = true;
+        _ded = true;
     }
 
     public void iterateStep()
@@ -61,7 +61,7 @@ class Snake
         _previousPositions = new List<Vector2>(_positions);
 
         Vector2 head = _positions[0];
-        lastInput = getInput();
+        _lastInput = getInput();
 
         // follow the next segment
         for (int i = _positions.Count - 1; i > 0; i--)
@@ -73,16 +73,16 @@ class Snake
             _rotations[i] = _rotations[i - 1];
         }
 
-        head += lastInput;
+        head += _lastInput;
 
         // kill snake if you hit wall weh weh
-        if (head.X < 0 || head.X >= Program.boardSize) ded = true;
-        if (head.Y < 0 || head.Y >= Program.boardSize) ded = true;
+        if (head.X < 0 || head.X >= Program.boardSize) _ded = true;
+        if (head.Y < 0 || head.Y >= Program.boardSize) _ded = true;
 
         // self collision, doesn't work, later problem
         for (int i = 1; i < _positions.Count - 1; i++)
         {
-            if (head == _positions[i]) ded = true;
+            if (head == _positions[i]) _ded = true;
         }
 
         _positions[0] = head;
@@ -101,17 +101,17 @@ class Snake
     public void drawSnek()
     {
         // draw head
-        float scale = Program.squareSize / image.Width;
+        float scale = Program.squareSize / _image.Width;
         Vector2 headPos = _renderPositions[0] * Program.squareSize;
         Raylib.DrawTexturePro(
-            image,
-            new Rectangle(0, 0, image.Width, image.Height),
+            _image,
+            new Rectangle(0, 0, _image.Width, _image.Height),
             new Rectangle(
             headPos.X + Program.squareSize / 2,
             headPos.Y + Program.squareSize / 2,
-            image.Width * scale,
-            image.Height * scale),
-            new Vector2(image.Width * scale / 2, image.Height * scale / 2),
+            _image.Width * scale,
+            _image.Height * scale),
+            new Vector2(_image.Width * scale / 2, _image.Height * scale / 2),
             _rotations[0],
             Color.White);
 
@@ -120,25 +120,25 @@ class Snake
         {
             Vector2 bodyPos = _renderPositions[i] * Program.squareSize;
             Raylib.DrawTexturePro(
-            imageSeg,
-            new Rectangle(0, 0, imageSeg.Width, imageSeg.Height),
+            _imageSeg,
+            new Rectangle(0, 0, _imageSeg.Width, _imageSeg.Height),
             new Rectangle(
             bodyPos.X + Program.squareSize / 2,
             bodyPos.Y + Program.squareSize / 2,
-            imageSeg.Width * scale,
-            imageSeg.Height * scale),
-            new Vector2(imageSeg.Width * scale / 2, imageSeg.Height * scale / 2),
+            _imageSeg.Width * scale,
+            _imageSeg.Height * scale),
+            new Vector2(_imageSeg.Width * scale / 2, _imageSeg.Height * scale / 2),
             _rotations[i-1],
             Color.White);
         }
     }
     public void runningInputQueue()
     {
-        lastInput = getInput();
+        _lastInput = getInput();
     }
     public Vector2 getInput()
     {
-        Vector2 newInput = lastInput;
+        Vector2 newInput = _lastInput;
 
         if (Raylib.IsKeyPressed(KeyboardKey.Right)) { newInput = new Vector2(1, 0); _rotations[0] = 90; }
         if (Raylib.IsKeyPressed(KeyboardKey.Left)) { newInput = new Vector2(-1, 0); _rotations[0] = -90; }
@@ -147,11 +147,11 @@ class Snake
 
 
         // no backwards
-        if (newInput + lastInput != Vector2.Zero)
+        if (newInput + _lastInput != Vector2.Zero)
         {
             return newInput;
         }
 
-        return lastInput;
+        return _lastInput;
     }
 }
